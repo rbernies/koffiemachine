@@ -1,3 +1,4 @@
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using KoffieMachineDomain;
@@ -13,6 +14,7 @@ namespace Dpint_wk456_KoffieMachine.ViewModel
     {
         private Dictionary<string, double> _cashOnCards;
         public ObservableCollection<string> LogText { get; private set; }
+        private CoffeeFactory _coffeeFactory;
 
         public MainViewModel()
         {
@@ -31,6 +33,7 @@ namespace Dpint_wk456_KoffieMachine.ViewModel
             _cashOnCards["Daan"] = 6.0;
             PaymentCardUsernames = new ObservableCollection<string>(_cashOnCards.Keys);
             SelectedPaymentCardUsername = PaymentCardUsernames[0];
+            _coffeeFactory = new CoffeeFactory();
         }
 
         #region Drink properties to bind to
@@ -139,123 +142,22 @@ namespace Dpint_wk456_KoffieMachine.ViewModel
         public ICommand DrinkCommand => new RelayCommand<string>((drinkName) =>
         {
             _selectedDrink = null;
-            switch (drinkName)
-            {
-                case "Coffee":
-                    _selectedDrink = new Coffee() { DrinkStrength = CoffeeStrength };
-                    break;
-                case "Espresso":
-                    _selectedDrink = new Espresso();
-                    break;
-                case "Capuccino":
-                    _selectedDrink = new Capuccino();
-                    break;
-                case "Wiener Melange":
-                    _selectedDrink = new WienerMelange();
-                    break;
-                case "Café au Lait":
-                    _selectedDrink = new CafeAuLait();
-                    break;
-                default:
-                    LogText.Add($"Could not make {drinkName}, recipe not found.");
-                    break;
-            }
-            
+
+            _selectedDrink = _coffeeFactory.MakeCoffee(drinkName, CoffeeStrength, SugarAmount, MilkAmount);
+                              
             if(_selectedDrink != null)
             {
                 RemainingPriceToPay = _selectedDrink.GetPrice();
-                LogText.Add($"Selected {_selectedDrink.Name}, price: {RemainingPriceToPay.ToString("C", CultureInfo.CurrentCulture)}");
+           
+                LogText.Add($"Selected {_selectedDrink.Name} " + _coffeeFactory.GetSugarMilkInfo() + $", price: {RemainingPriceToPay.ToString("C", CultureInfo.CurrentCulture)}");
                 RaisePropertyChanged(() => RemainingPriceToPay);
                 RaisePropertyChanged(() => SelectedDrinkName);
                 RaisePropertyChanged(() => SelectedDrinkPrice);
-            }
+            } else
+            {
+                    LogText.Add($"Could not make {drinkName}, recipe not found.");
+                }
         });
-
-        public ICommand DrinkWithSugarCommand => new RelayCommand<string>((drinkName) =>
-        {
-            _selectedDrink = null;
-            RemainingPriceToPay = 0;
-            switch (drinkName)
-            {
-                case "Coffee":
-                    _selectedDrink = new Coffee() { DrinkStrength = CoffeeStrength, HasSugar = true, SugarAmount = SugarAmount };
-                    break;
-                case "Espresso":
-                    _selectedDrink = new Espresso(){ HasSugar = true, SugarAmount = SugarAmount };
-                    break;
-                case "Capuccino":
-                    _selectedDrink = new Capuccino() { HasSugar = true, SugarAmount = SugarAmount };
-                    break;
-                case "Wiener Melange":
-                    _selectedDrink = new WienerMelange() { HasSugar = true, SugarAmount = SugarAmount };
-                    break;
-                default:
-                    LogText.Add($"Could not make {drinkName} with sugar, recipe not found.");
-                    break;
-            }
-
-            if (_selectedDrink != null)
-            {
-                RemainingPriceToPay = _selectedDrink.GetPrice() + Drink.SugarPrice;
-                LogText.Add($"Selected {_selectedDrink.Name} with sugar, price: {RemainingPriceToPay.ToString("C", CultureInfo.CurrentCulture)}");
-                RaisePropertyChanged(() => RemainingPriceToPay);
-                RaisePropertyChanged(() => SelectedDrinkName);
-                RaisePropertyChanged(() => SelectedDrinkPrice);
-            }
-        });
-
-        public ICommand DrinkWithMilkCommand => new RelayCommand<string>((drinkName) =>
-        {
-            switch (drinkName)
-            {
-                case "Coffee":
-                    _selectedDrink = new Coffee() { DrinkStrength = CoffeeStrength, HasMilk = true, MilkAmount = MilkAmount };
-                    break;
-                case "Espresso":
-                    _selectedDrink = new Espresso() { HasMilk = true, MilkAmount = MilkAmount };
-                    break;
-                default:
-                    LogText.Add($"Could not make {drinkName} with milk, recipe not found.");
-                    break;
-            }
-
-            if (_selectedDrink != null)
-            {
-                RemainingPriceToPay = _selectedDrink.GetPrice() + Drink.MilkPrice;
-                LogText.Add($"Selected {_selectedDrink.Name} with milk, price: {RemainingPriceToPay}");
-                RaisePropertyChanged(() => RemainingPriceToPay);
-                RaisePropertyChanged(() => SelectedDrinkName);
-                RaisePropertyChanged(() => SelectedDrinkPrice);
-            }
-        });
-
-        public ICommand DrinkWithSugarAndMilkCommand => new RelayCommand<string>((drinkName) =>
-        {
-            _selectedDrink = null;
-            RemainingPriceToPay = 0;
-            switch (drinkName)
-            {
-                case "Coffee":
-                    _selectedDrink = new Coffee() { DrinkStrength = CoffeeStrength, HasSugar = true, SugarAmount = SugarAmount, HasMilk = true, MilkAmount = MilkAmount };
-                    break;
-                case "Espresso":
-                    _selectedDrink = new Espresso() { HasSugar = true, SugarAmount = SugarAmount, HasMilk = true, MilkAmount = MilkAmount };
-                    break;
-                default:
-                    LogText.Add($"Could not make {drinkName} with milk, recipe not found.");
-                    break;
-            }
-
-            if (_selectedDrink != null)
-            {
-                RemainingPriceToPay = _selectedDrink.GetPrice() + Drink.SugarPrice + Drink.MilkPrice;
-                LogText.Add($"Selected {_selectedDrink.Name} with sugar and milk, price: {RemainingPriceToPay}");
-                RaisePropertyChanged(() => RemainingPriceToPay);
-                RaisePropertyChanged(() => SelectedDrinkName);
-                RaisePropertyChanged(() => SelectedDrinkPrice);
-            }
-        });
-
         #endregion Coffee buttons
     }
 }

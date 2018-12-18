@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace KoffieMachineDomain
 {
-    public class WienerMelange : Capuccino
+    public class WienerMelange : Cappuccino
     {
         public override string Name => "Wiener Melange";
 

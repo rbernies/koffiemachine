@@ -16,6 +16,15 @@ namespace KoffieMachineDomain
 
         public override double GetPrice()
         {
+            if (HasMilk && HasSugar)
+                return BaseDrinkPrice + 0.7 + Drink.SugarPrice + Drink.MilkPrice;
+
+            if (HasSugar)
+                return BaseDrinkPrice + 0.7 + Drink.SugarPrice;
+
+            if (HasMilk)
+                return BaseDrinkPrice + 0.7 + Drink.MilkPrice;
+
             return BaseDrinkPrice + 0.7;
         }
 

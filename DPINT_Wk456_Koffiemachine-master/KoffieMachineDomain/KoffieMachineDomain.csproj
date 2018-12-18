@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Amount.cs" />
     <Compile Include="CafeAuLait.cs" />
-    <Compile Include="Capuccino.cs" />
+    <Compile Include="Cappuccino.cs" />
     <Compile Include="Coffee.cs" />
     <Compile Include="Drink.cs" />
     <Compile Include="Espresso.cs" />

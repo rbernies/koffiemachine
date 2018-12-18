@@ -6,20 +6,23 @@ using System.Threading.Tasks;
 
 namespace KoffieMachineDomain
 {
-    public class Capuccino : Drink
+    public class Cappuccino : Drink
     {
         public override string Name => "Capuccino";
         public virtual bool HasSugar { get; set; }
         public virtual Amount SugarAmount { get; set; }
         protected virtual Strength DrinkStrength { get; set; }
 
-        public Capuccino()
+        public Cappuccino()
         {
             DrinkStrength = Strength.Normal;
         }
 
         public override double GetPrice()
         {
+            if (HasSugar)
+            return BaseDrinkPrice + 0.8 + Drink.SugarPrice;
+
             return BaseDrinkPrice + 0.8;
         }
         public override void LogDrinkMaking(ICollection<string> log)

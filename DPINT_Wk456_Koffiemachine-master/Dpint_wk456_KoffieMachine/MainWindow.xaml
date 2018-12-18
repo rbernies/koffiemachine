@@ -74,13 +74,13 @@
                 <Button Command="{Binding DrinkCommand}" CommandParameter="Coffee" Style="{StaticResource DrinkButton}">
                     <TextBlock>Coffee</TextBlock>
                 </Button>
-                <Button Command="{Binding DrinkWithSugarCommand}" CommandParameter="Coffee" Style="{StaticResource DrinkButton}">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="CoffeeSugar" Style="{StaticResource DrinkButton}">
                     <TextBlock>Coffee + sugar</TextBlock>
                 </Button>
-                <Button Command="{Binding DrinkWithMilkCommand}" CommandParameter="Coffee" Style="{StaticResource DrinkButton}">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="CoffeeMilk" Style="{StaticResource DrinkButton}">
                     <TextBlock>Coffee + milk</TextBlock>
                 </Button>
-                <Button Command="{Binding DrinkWithSugarAndMilkCommand}" CommandParameter="Coffee" Style="{StaticResource DrinkButton}">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="CoffeeSugarMilk" Style="{StaticResource DrinkButton}">
                     <TextBlock>Coffee + sugar + milk</TextBlock>
                 </Button>
             </StackPanel>
@@ -90,23 +90,23 @@
                 <Button Command="{Binding DrinkCommand}" CommandParameter="Espresso" Style="{StaticResource DrinkButton}">
                     <TextBlock>Espresso</TextBlock>
                 </Button>
-                <Button Command="{Binding DrinkWithSugarCommand}" CommandParameter="Espresso" Style="{StaticResource DrinkButton}">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="EspressoSugar" Style="{StaticResource DrinkButton}">
                     <TextBlock>Espresso + sugar</TextBlock>
                 </Button>
-                <Button Command="{Binding DrinkWithMilkCommand}" CommandParameter="Espresso" Style="{StaticResource DrinkButton}">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="EspressoMilk" Style="{StaticResource DrinkButton}">
                     <TextBlock>Espresso + milk</TextBlock>
                 </Button>
-                <Button Command="{Binding DrinkWithSugarAndMilkCommand}" CommandParameter="Espresso" Style="{StaticResource DrinkButton}">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="EspressoSugarMilk" Style="{StaticResource DrinkButton}">
                     <TextBlock>Espresso + sugar + milk</TextBlock>
                 </Button>
             </StackPanel>
             <Separator />
             <Label Content="Specialties" FontWeight="Bold"/>
             <StackPanel Orientation="Horizontal" Name="SpecialtiesPanel" HorizontalAlignment="Center" Margin="5">
-                <Button Command="{Binding DrinkCommand}" CommandParameter="Capuccino" Style="{StaticResource DrinkButton}">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="Cappuccino" Style="{StaticResource DrinkButton}">
                     <TextBlock>Capuccino</TextBlock>
                 </Button>
-                <Button Command="{Binding DrinkWithSugarCommand}" CommandParameter="Capuccino" Style="{StaticResource DrinkButton}">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="CappuccinoSugar" Style="{StaticResource DrinkButton}">
                     <TextBlock>Capuccino + sugar</TextBlock>
                 </Button>
                 <Button Command="{Binding DrinkCommand}" CommandParameter="Wiener Melange" Style="{StaticResource DrinkButton}">
@@ -132,7 +132,7 @@
                 <Button Command="{Binding DrinkCommand}" CommandParameter="Tea" Style="{StaticResource DrinkButton}">
                     <TextBlock>Tea</TextBlock>
                 </Button>
-                <Button Command="{Binding DrinkWithSugarCommand}" CommandParameter="Tea" Style="{StaticResource DrinkButton}">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="TeaSugar" Style="{StaticResource DrinkButton}">
                     <TextBlock>Tea + sugar</TextBlock>
                 </Button>
                 <TextBlock TextWrapping="WrapWithOverflow" Width="250">How to choose your teablend? //TODO: Make this work!</TextBlock>
