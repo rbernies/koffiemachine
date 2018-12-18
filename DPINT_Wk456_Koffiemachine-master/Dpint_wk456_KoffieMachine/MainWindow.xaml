@@ -102,19 +102,23 @@
             </StackPanel>
             <Separator />
             <Label Content="Specialties" FontWeight="Bold"/>
-            <StackPanel Orientation="Horizontal" Name="SpecialtiesPanel" HorizontalAlignment="Center" Margin="5">
-                <Button Command="{Binding DrinkCommand}" CommandParameter="Cappuccino" Style="{StaticResource DrinkButton}">
+            <StackPanel Orientation="Horizontal" Name="SpecialtiesPanel" HorizontalAlignment="Center" Margin="10,5" Width="416">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="Cappuccino" Style="{StaticResource DrinkButton}" Width="70">
                     <TextBlock>Capuccino</TextBlock>
                 </Button>
                 <Button Command="{Binding DrinkCommand}" CommandParameter="CappuccinoSugar" Style="{StaticResource DrinkButton}">
-                    <TextBlock>Capuccino + sugar</TextBlock>
+                    <TextBlock Width="70">Capuccino + sugar</TextBlock>
                 </Button>
-                <Button Command="{Binding DrinkCommand}" CommandParameter="Wiener Melange" Style="{StaticResource DrinkButton}">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="Wiener Melange" Style="{StaticResource DrinkButton}" Width="59">
                     <TextBlock>Wiener Melange</TextBlock>
                 </Button>
-                <Button Command="{Binding DrinkCommand}" CommandParameter="Café au Lait" Style="{StaticResource DrinkButton}">
-                    <TextBlock>Café au Lait</TextBlock>
+                <Button Command="{Binding DrinkCommand}" CommandParameter="Café au Lait" Style="{StaticResource DrinkButton}" Width="74">
+                    <TextBlock Width="40">Café au Lait</TextBlock>
                 </Button>
+                <Button Command="{Binding DrinkCommand}" CommandParameter="Irish Coffee" Style="{StaticResource DrinkButton}" Width="78">
+                    <TextBlock RenderTransformOrigin="2.415,0.437">Irish Coffee</TextBlock>
+                </Button>
+
             </StackPanel>
             <Separator />
             <Label Content="Chocolate" FontWeight="Bold"/>
@@ -124,6 +128,9 @@
                 </Button>
                 <Button Command="{Binding DrinkCommand}" CommandParameter="Chocolate Deluxe" Style="{StaticResource DrinkButton}">
                     <TextBlock>Chocolate Deluxe</TextBlock>
+                </Button>
+                <Button Command="{Binding DrinkCommand}" CommandParameter="CoffeeChoc" Style="{StaticResource DrinkButton}">
+                    <TextBlock>CoffeeChoc</TextBlock>
                 </Button>
             </StackPanel>
             <Separator />

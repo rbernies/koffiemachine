@@ -1,4 +1,5 @@
 ﻿using KoffieMachineDomain;
+using KoffieMachineDomain.Drinks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,11 @@ namespace Dpint_wk456_KoffieMachine
                 case "Chocolate Deluxe":
                     return new HotChocolateAdapter(true);
                 case "Tea":
-                    return new TeaAdapter(_hasSugar, selectedTeaBlend);               
+                    return new TeaAdapter(_hasSugar, selectedTeaBlend);
+                case "Irish Coffee":
+                    return new IrishCoffee();
+                case "CoffeeChoc":
+                    return new CoffeeChoc();
                 default:
                     return null;
             }           

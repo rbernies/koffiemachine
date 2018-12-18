@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Dpint_wk456_KoffieMachine
 {
-    public class Pay
+    public class Payment
     {
         public double Balance { get; set; }
         public double Price { get; set; }
 
-        public Pay(double balance, double price)
+        public Payment(double balance, double price)
         {
             Balance = balance;
             Price = price;

@@ -43,18 +43,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Amount.cs" />
-    <Compile Include="CafeAuLait.cs" />
-    <Compile Include="Cappuccino.cs" />
-    <Compile Include="Coffee.cs" />
-    <Compile Include="Drink.cs" />
-    <Compile Include="Espresso.cs" />
-    <Compile Include="HotChocolateAdapter.cs" />
-    <Compile Include="IDrink.cs" />
+    <Compile Include="DrinkProperties\Amount.cs" />
+    <Compile Include="Drinks\CafeAuLait.cs" />
+    <Compile Include="Drinks\Cappuccino.cs" />
+    <Compile Include="Drinks\Coffee.cs" />
+    <Compile Include="Drinks\CoffeeChoc.cs" />
+    <Compile Include="Drinks\Drink.cs" />
+    <Compile Include="Drinks\Espresso.cs" />
+    <Compile Include="Drinks\HotChocolateAdapter.cs" />
+    <Compile Include="Drinks\IDrink.cs" />
+    <Compile Include="Drinks\IrishCoffee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Strength.cs" />
-    <Compile Include="TeaAdapter.cs" />
-    <Compile Include="WienerMelange.cs" />
+    <Compile Include="DrinkProperties\Strength.cs" />
+    <Compile Include="Drinks\TeaAdapter.cs" />
+    <Compile Include="Drinks\WienerMelange.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

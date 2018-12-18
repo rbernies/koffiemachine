@@ -10,6 +10,8 @@ namespace KoffieMachineDomain
     {
         public static readonly double SugarPrice = 0.1;
         public static readonly double MilkPrice = 0.15;
+        public static readonly double WhiskyPrice = 1;
+        public static readonly double WhippedCreamPrice = 0.3;
 
         protected const double BaseDrinkPrice = 1.0;
         

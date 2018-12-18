@@ -61,7 +61,7 @@ namespace Dpint_wk456_KoffieMachine.ViewModel
         #region Payment
         public RelayCommand PayByCardCommand => new RelayCommand(() =>
         {
-            Pay pay = new Pay(_cashOnCards[SelectedPaymentCardUsername], RemainingPriceToPay);
+            Payment pay = new Payment(_cashOnCards[SelectedPaymentCardUsername], RemainingPriceToPay);
             if (_selectedDrink != null)
             {
                 LogText.Add(pay.PayByCard(_cashOnCards[SelectedPaymentCardUsername], RemainingPriceToPay));
@@ -74,7 +74,7 @@ namespace Dpint_wk456_KoffieMachine.ViewModel
 
         public ICommand PayByCoinCommand => new RelayCommand<double>(coinValue =>
         {
-            Pay pay = new Pay(coinValue, RemainingPriceToPay);
+            Payment pay = new Payment(coinValue, RemainingPriceToPay);
             LogText.Add(pay.PayWithCoins());
             RemainingPriceToPay = pay.Price;
             makeCoffee();
