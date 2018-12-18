@@ -1,0 +1,198 @@
+﻿<Window x:Class="Dpint_wk456_KoffieMachine.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:c="clr-namespace:System;assembly=mscorlib"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+        xmlns:helpers="clr-namespace:Dpint_wk456_KoffieMachine.Helpers"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="620" Width="900"
+        DataContext="{Binding Main, Source={StaticResource Locator }}">
+    <Window.Resources>
+        <helpers:EnumToBooleanConverter x:Key="EnumToBool"/>
+        <Image x:Key="5cents" Source="Images/5cents.png" />
+        <Image x:Key="10cents" Source="Images/10cents.png" />
+        <Image x:Key="20cents" Source="Images/20cents.png" />
+        <Image x:Key="50cents" Source="Images/50cents.png" />
+        <Image x:Key="1euro" Source="Images/1euro.png" />
+        <Image x:Key="2euros" Source="Images/2euros.png" />
+        <Style TargetType="Button" x:Key="DrinkButton" >
+            <Style.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="TextAlignment" Value="Center"/>
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                </Style>
+            </Style.Resources>
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Width" Value="80" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
+    </Window.Resources>
+    <Grid Name="MainPanel">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="1" BorderThickness="1" Grid.Row="0" BorderBrush="Black"/>
+        <Border Grid.Column="2" BorderThickness="1" Grid.Row="0" BorderBrush="Black"/>
+        <ListBox Grid.Column="0" ItemsSource="{Binding LogText}" Background="Black" Foreground="GreenYellow" Padding="5"
+                  helpers:SelectorExtenders.IsAutoscroll="True"/>
+        <StackPanel Grid.Column="1" Orientation="Vertical" Name="SelectionPanel" Margin="5">
+            <Grid Name="StrengthsPanel">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center">
+                    <Label FontWeight="Bold">Strength</Label>
+                    <RadioButton GroupName="Strength" IsChecked="{Binding Path=CoffeeStrength, Converter={StaticResource EnumToBool}, ConverterParameter=Weak}">Weak</RadioButton>
+                    <RadioButton GroupName="Strength" IsChecked="{Binding Path=CoffeeStrength, Converter={StaticResource EnumToBool}, ConverterParameter=Normal}">Normal</RadioButton>
+                    <RadioButton GroupName="Strength" IsChecked="{Binding Path=CoffeeStrength, Converter={StaticResource EnumToBool}, ConverterParameter=Strong}">Strong</RadioButton>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center">
+                    <Label FontWeight="Bold">Sugar</Label>
+                    <RadioButton GroupName="Sugar" IsChecked="{Binding Path=SugarAmount, Converter={StaticResource EnumToBool}, ConverterParameter=Few}">Few</RadioButton>
+                    <RadioButton GroupName="Sugar" IsChecked="{Binding Path=SugarAmount, Converter={StaticResource EnumToBool}, ConverterParameter=Normal}">Normal</RadioButton>
+                    <RadioButton GroupName="Sugar" IsChecked="{Binding Path=SugarAmount, Converter={StaticResource EnumToBool}, ConverterParameter=Extra}">Extra</RadioButton>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center">
+                    <Label FontWeight="Bold">Milk</Label>
+                    <RadioButton GroupName="Milk" IsChecked="{Binding Path=MilkAmount, Converter={StaticResource EnumToBool}, ConverterParameter=Few}">Few</RadioButton>
+                    <RadioButton GroupName="Milk" IsChecked="{Binding Path=MilkAmount, Converter={StaticResource EnumToBool}, ConverterParameter=Normal}">Normal</RadioButton>
+                    <RadioButton GroupName="Milk" IsChecked="{Binding Path=MilkAmount, Converter={StaticResource EnumToBool}, ConverterParameter=Extra}">Extra</RadioButton>
+                </StackPanel>
+            </Grid>
+            <Separator />
+            <Label Content="Coffee" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" Name="CoffeePanel" HorizontalAlignment="Center" Margin="5">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="Coffee" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Coffee</TextBlock>
+                </Button>
+                <Button Command="{Binding DrinkWithSugarCommand}" CommandParameter="Coffee" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Coffee + sugar</TextBlock>
+                </Button>
+                <Button Command="{Binding DrinkWithMilkCommand}" CommandParameter="Coffee" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Coffee + milk</TextBlock>
+                </Button>
+                <Button Command="{Binding DrinkWithSugarAndMilkCommand}" CommandParameter="Coffee" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Coffee + sugar + milk</TextBlock>
+                </Button>
+            </StackPanel>
+            <Separator />
+            <Label Content="Espresso" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" Name="EsspressoPanel" HorizontalAlignment="Center" Margin="5">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="Espresso" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Espresso</TextBlock>
+                </Button>
+                <Button Command="{Binding DrinkWithSugarCommand}" CommandParameter="Espresso" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Espresso + sugar</TextBlock>
+                </Button>
+                <Button Command="{Binding DrinkWithMilkCommand}" CommandParameter="Espresso" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Espresso + milk</TextBlock>
+                </Button>
+                <Button Command="{Binding DrinkWithSugarAndMilkCommand}" CommandParameter="Espresso" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Espresso + sugar + milk</TextBlock>
+                </Button>
+            </StackPanel>
+            <Separator />
+            <Label Content="Specialties" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" Name="SpecialtiesPanel" HorizontalAlignment="Center" Margin="5">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="Capuccino" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Capuccino</TextBlock>
+                </Button>
+                <Button Command="{Binding DrinkWithSugarCommand}" CommandParameter="Capuccino" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Capuccino + sugar</TextBlock>
+                </Button>
+                <Button Command="{Binding DrinkCommand}" CommandParameter="Wiener Melange" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Wiener Melange</TextBlock>
+                </Button>
+                <Button Command="{Binding DrinkCommand}" CommandParameter="Café au Lait" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Café au Lait</TextBlock>
+                </Button>
+            </StackPanel>
+            <Separator />
+            <Label Content="Chocolate" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" Name="ChocolatePanel" HorizontalAlignment="Center" Margin="5">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="Chocolate" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Chocolate</TextBlock>
+                </Button>
+                <Button Command="{Binding DrinkCommand}" CommandParameter="Chocolate Deluxe" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Chocolate Deluxe</TextBlock>
+                </Button>
+            </StackPanel>
+            <Separator />
+            <Label Content="Tea" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" Name="TeaPanel" HorizontalAlignment="Center" Margin="5">
+                <Button Command="{Binding DrinkCommand}" CommandParameter="Tea" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Tea</TextBlock>
+                </Button>
+                <Button Command="{Binding DrinkWithSugarCommand}" CommandParameter="Tea" Style="{StaticResource DrinkButton}">
+                    <TextBlock>Tea + sugar</TextBlock>
+                </Button>
+                <TextBlock TextWrapping="WrapWithOverflow" Width="250">How to choose your teablend? //TODO: Make this work!</TextBlock>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Orientation="Vertical" Margin="5" Name="Payment">
+            <Label HorizontalAlignment="Center" FontSize="14">Payment by card</Label>
+            <TextBlock HorizontalAlignment="Center" TextWrapping="WrapWithOverflow">Enter the username on your card:</TextBlock>
+            <ComboBox ItemsSource="{Binding PaymentCardUsernames}" SelectedValue="{Binding SelectedPaymentCardUsername}" />
+            <TextBlock FontSize="8" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Path=PaymentCardRemainingAmount, StringFormat='Remaining amount on card €{0:0.00}' }" />
+            <Button Command="{ Binding PayByCardCommand }" Margin="5">Pay</Button>
+            <Separator />
+            <Label HorizontalAlignment="Center" FontSize="14">Payment by coins</Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" Grid.Column="0" Command="{Binding PayByCoinCommand}" Width="60" Height="60"
+                        Content="{StaticResource 5cents}" Background="Transparent" BorderThickness="0">
+                    <Button.CommandParameter>
+                        <c:Double>0.05</c:Double>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Grid.Row="0" Grid.Column="1" Command="{Binding PayByCoinCommand}" Width="60" Height="60"
+                        Content="{StaticResource 10cents}" Background="Transparent" BorderThickness="0">
+                    <Button.CommandParameter>
+                        <c:Double>0.1</c:Double>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Grid.Row="1" Grid.Column="0" Command="{Binding PayByCoinCommand}" Width="60" Height="60"
+                        Content="{StaticResource 20cents}" Background="Transparent" BorderThickness="0">
+                    <Button.CommandParameter>
+                        <c:Double>0.2</c:Double>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Grid.Row="1" Grid.Column="1" Command="{Binding PayByCoinCommand}" Width="60" Height="60"
+                        Content="{StaticResource 50cents}" Background="Transparent" BorderThickness="0">
+                    <Button.CommandParameter>
+                        <c:Double>0.5</c:Double>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Grid.Row="2" Grid.Column="0" Command="{Binding PayByCoinCommand}" Width="60" Height="60"
+                        Content="{StaticResource 1euro}" Background="Transparent" BorderThickness="0">
+                    <Button.CommandParameter>
+                        <c:Double>1</c:Double>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Grid.Row="2" Grid.Column="1" Command="{Binding PayByCoinCommand}" Width="60" Height="60"
+                        Content="{StaticResource 2euros}" Background="Transparent" BorderThickness="0">
+                    <Button.CommandParameter>
+                        <c:Double>2</c:Double>
+                    </Button.CommandParameter>
+                </Button>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
