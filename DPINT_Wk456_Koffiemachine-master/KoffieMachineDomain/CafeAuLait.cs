@@ -20,7 +20,6 @@ namespace KoffieMachineDomain
             base.LogDrinkMaking(log);
             log.Add("Filling half with coffee...");
             log.Add("Filling other half with milk...");
-            log.Add($"Finished making {Name}");
         }
     }
 }

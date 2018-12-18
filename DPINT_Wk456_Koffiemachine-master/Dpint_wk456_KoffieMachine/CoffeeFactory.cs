@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TeaAndChocoLibrary;
 
 namespace Dpint_wk456_KoffieMachine
 {
@@ -16,7 +17,7 @@ namespace Dpint_wk456_KoffieMachine
         {
         }
 
-        public Drink SelectCoffee(string coffee, Strength coffeeStrength, Amount sugarAmount, Amount milkAmount)
+        public Drink SelectCoffee(string coffee, Strength coffeeStrength, Amount sugarAmount, Amount milkAmount, TeaBlend selectedTeaBlend)
         {
             // else required to reset the bool to false if appropriate, otherwise bool would stay stuck on true for the next order
             if (coffee.Contains("Sugar"))
@@ -44,6 +45,14 @@ namespace Dpint_wk456_KoffieMachine
                     return new Cappuccino() { HasSugar = _hasSugar, SugarAmount = sugarAmount };
                 case "Wiener Melange":
                     return new WienerMelange() { HasSugar = _hasSugar, SugarAmount = sugarAmount };
+                case "Café au Lait":
+                    return new CafeAuLait();
+                case "Chocolate":
+                    return new HotChocolateAdapter(false);
+                case "Chocolate Deluxe":
+                    return new HotChocolateAdapter(true);
+                case "Tea":
+                    return new TeaAdapter(_hasSugar, selectedTeaBlend);               
                 default:
                     return null;
             }           

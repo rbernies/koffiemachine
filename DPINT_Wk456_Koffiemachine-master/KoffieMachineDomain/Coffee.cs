@@ -34,22 +34,17 @@ namespace KoffieMachineDomain
         public override void LogDrinkMaking(ICollection<string> log)
         {
             base.LogDrinkMaking(log);
-            log.Add($"Setting coffee strength to {DrinkStrength}.");
-            log.Add("Filling with coffee...");
+            base.DrinkStrength(log, DrinkStrength);
 
             if (HasSugar)
             {
-                log.Add($"Setting sugar amount to {SugarAmount}.");
-                log.Add("Adding sugar...");
+                base.HasSugar(log, SugarAmount);
             }
 
             if (HasMilk)
             {
-                log.Add($"Setting milk amount to {MilkAmount}.");
-                log.Add("Adding milk...");
+                base.HasMilk(log, MilkAmount);
             }
-
-            log.Add($"Finished making {Name}");
         }
     }
 }

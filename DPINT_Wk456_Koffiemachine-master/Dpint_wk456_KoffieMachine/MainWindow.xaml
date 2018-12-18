@@ -135,13 +135,15 @@
                 <Button Command="{Binding DrinkCommand}" CommandParameter="TeaSugar" Style="{StaticResource DrinkButton}">
                     <TextBlock>Tea + sugar</TextBlock>
                 </Button>
-                <TextBlock TextWrapping="WrapWithOverflow" Width="250">How to choose your teablend? //TODO: Make this work!</TextBlock>
+                <ComboBox Width="128" Height="48"
+                    ItemsSource="{Binding TeaBlends}" SelectedIndex="0" SelectedValue="{Binding SelectedTeaBlend}">
+                </ComboBox>
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="2" Orientation="Vertical" Margin="5" Name="Payment">
             <Label HorizontalAlignment="Center" FontSize="14">Payment by card</Label>
             <TextBlock HorizontalAlignment="Center" TextWrapping="WrapWithOverflow">Enter the username on your card:</TextBlock>
-            <ComboBox ItemsSource="{Binding PaymentCardUsernames}" SelectedValue="{Binding SelectedPaymentCardUsername}" />
+            <ComboBox ItemsSource="{Binding PaymentCardUsernames}" SelectedIndex="0" SelectedValue="{Binding SelectedPaymentCardUsername}" />
             <TextBlock FontSize="8" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Path=PaymentCardRemainingAmount, StringFormat='Remaining amount on card €{0:0.00}' }" />
             <Button Command="{ Binding PayByCardCommand }" Margin="5">Pay</Button>
             <Separator />
