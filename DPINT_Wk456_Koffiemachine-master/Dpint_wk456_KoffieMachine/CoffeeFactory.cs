@@ -16,7 +16,7 @@ namespace Dpint_wk456_KoffieMachine
         {
         }
 
-        public Drink MakeCoffee(string coffee, Strength coffeeStrength, Amount sugarAmount, Amount milkAmount)
+        public Drink SelectCoffee(string coffee, Strength coffeeStrength, Amount sugarAmount, Amount milkAmount)
         {
             // else required to reset the bool to false if appropriate, otherwise bool would stay stuck on true for the next order
             if (coffee.Contains("Sugar"))

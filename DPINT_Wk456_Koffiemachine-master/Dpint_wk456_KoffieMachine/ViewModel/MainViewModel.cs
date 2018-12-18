@@ -52,39 +52,27 @@ namespace Dpint_wk456_KoffieMachine.ViewModel
         #region Payment
         public RelayCommand PayByCardCommand => new RelayCommand(() =>
         {
-            PayDrink(payWithCard: true);
+            Pay pay = new Pay(_cashOnCards[SelectedPaymentCardUsername], RemainingPriceToPay);
+            if (_selectedDrink != null)
+            {
+                LogText.Add(pay.PayByCard(_cashOnCards[SelectedPaymentCardUsername], RemainingPriceToPay));
+                RemainingPriceToPay = pay.Price;
+                _cashOnCards[SelectedPaymentCardUsername] = pay.Balance;
+            }
+            RaisePropertyChanged(() => PaymentCardRemainingAmount);
+            makeCoffee();
         });
 
         public ICommand PayByCoinCommand => new RelayCommand<double>(coinValue =>
         {
-            PayDrink(payWithCard: false, insertedMoney: coinValue);
+            Pay pay = new Pay(coinValue, RemainingPriceToPay);
+            LogText.Add(pay.PayWithCoins());
+            RemainingPriceToPay = pay.Price;
+            makeCoffee();
         });
 
-        private void PayDrink(bool payWithCard, double insertedMoney = 0)
+        private void makeCoffee()
         {
-            if (_selectedDrink != null && payWithCard)
-            {
-                insertedMoney = _cashOnCards[SelectedPaymentCardUsername];
-                if (RemainingPriceToPay <= insertedMoney)
-                {
-                    _cashOnCards[SelectedPaymentCardUsername] = insertedMoney - RemainingPriceToPay;
-                    RemainingPriceToPay = 0;
-                }
-                else // Pay what you can, fill up with coins later.
-                {
-                    _cashOnCards[SelectedPaymentCardUsername] = 0;
-                    
-                    RemainingPriceToPay -= insertedMoney;
-                }
-                LogText.Add($"Inserted {insertedMoney.ToString("C", CultureInfo.CurrentCulture)}, Remaining: {RemainingPriceToPay.ToString("C", CultureInfo.CurrentCulture)}.");
-                RaisePropertyChanged(() => PaymentCardRemainingAmount);
-            }
-            else if (_selectedDrink != null && !payWithCard)
-            {
-                RemainingPriceToPay = Math.Max(Math.Round(RemainingPriceToPay - insertedMoney, 2), 0);
-                LogText.Add($"Inserted {insertedMoney.ToString("C", CultureInfo.CurrentCulture)}, Remaining: {RemainingPriceToPay.ToString("C", CultureInfo.CurrentCulture)}.");
-            }
-
             if (_selectedDrink != null && RemainingPriceToPay == 0)
             {
                 _selectedDrink.LogDrinkMaking(LogText);
@@ -92,8 +80,7 @@ namespace Dpint_wk456_KoffieMachine.ViewModel
                 _selectedDrink = null;
             }
         }
-        
-
+       
         public double PaymentCardRemainingAmount => _cashOnCards.ContainsKey(SelectedPaymentCardUsername ?? "") ? _cashOnCards[SelectedPaymentCardUsername] : 0;
 
         public ObservableCollection<string> PaymentCardUsernames { get; set; }
@@ -143,7 +130,7 @@ namespace Dpint_wk456_KoffieMachine.ViewModel
         {
             _selectedDrink = null;
 
-            _selectedDrink = _coffeeFactory.MakeCoffee(drinkName, CoffeeStrength, SugarAmount, MilkAmount);
+            _selectedDrink = _coffeeFactory.SelectCoffee(drinkName, CoffeeStrength, SugarAmount, MilkAmount);
                               
             if(_selectedDrink != null)
             {
